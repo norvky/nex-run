@@ -33,6 +33,15 @@ async function greet() {
       <button type="submit">Greet</button>
     </form>
     <p>{{ greetMsg }}</p>
+
+    <div>
+      <n-button icon-placement="left">
+        <template #icon>
+          <n-icon><AccessAlarmOutlined /></n-icon>
+        </template>
+        Button
+      </n-button>
+    </div>
   </main>
 </template>
 

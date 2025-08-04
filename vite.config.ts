@@ -1,12 +1,57 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from "unplugin-vue-components/vite"
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import { ViconsResolver } from './vicons-resolver'
 
-// @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+
+    // 自动引入 Vue Composition API & VueUse 等常用函数
+    AutoImport({
+      imports: [
+        'vue',
+        // 'vue-router',
+        // '@vueuse/core',
+      ],
+      dts: 'src/auto-imports.d.ts',
+      resolvers: [
+        NaiveUiResolver(),
+        IconsResolver(),
+      ],
+      eslintrc: {
+        enabled: true, // 自动添加 ESLint globals
+        filepath: './.eslintrc-auto-import.json',
+      }
+    }),
+
+    // 自动按需引入组件
+    Components({
+      dirs: ['src/components'], // 自定义组件目录
+      extensions: ['vue'],
+      deep: true,
+      dts: 'src/components.d.ts',
+      resolvers: [
+        NaiveUiResolver(),
+        IconsResolver({
+          prefix: 'icon',
+        }),
+        ViconsResolver(),
+      ],
+    }),
+
+    // Icon 自动引入
+    Icons({
+      autoInstall: true,
+    }),
+  ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
