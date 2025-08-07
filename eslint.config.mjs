@@ -29,6 +29,10 @@ export default antfu({
      */
     markdown: 'prettier',
   },
+
+  rules: {
+    'ts/strict-boolean-expressions': 'off',
+  },
 }).removeRules(
   'node/prefer-global/process',
 )
