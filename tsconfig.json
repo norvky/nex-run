@@ -5,6 +5,9 @@
     "module": "ESNext",
     "lib": ["ESNext", "DOM", "DOM.Iterable", "WebWorker"],
     "skipLibCheck": true,
+    "types": [
+      "unplugin-icons/types/vue",
+    ],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -21,6 +24,15 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "auto-imports.d.ts",
+    "components.d.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
+  "references": [{
+    "path": "./tsconfig.node.json"
+  }]
 }

@@ -5,7 +5,6 @@ import Components from "unplugin-vue-components/vite"
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
-import { createIconComponentResolver, ViteIconCacheHMR } from './vicons-component-resolver'
 
 const host = process.env.TAURI_DEV_HOST;
 
@@ -13,6 +12,12 @@ const host = process.env.TAURI_DEV_HOST;
 export default defineConfig(async () => ({
   plugins: [
     vue(),
+
+    // unplugin-icons
+    Icons({
+      autoInstall: true,
+      compiler: 'vue3',
+    }),
 
     // 自动引入 Vue Composition API & VueUse 等常用函数
     AutoImport({
@@ -29,11 +34,7 @@ export default defineConfig(async () => ({
           ],
         },
       ],
-      dts: 'src/auto-imports.d.ts',
-      resolvers: [
-        NaiveUiResolver(),
-        IconsResolver(),
-      ],
+      dts: true,
       eslintrc: {
         enabled: true, // 自动添加 ESLint globals
         filepath: './.eslintrc-auto-import.json',
@@ -45,29 +46,14 @@ export default defineConfig(async () => ({
       dirs: ['src/components'], // 自定义组件目录
       extensions: ['vue'],
       deep: true,
-      dts: 'src/components.d.ts',
+      dts: true,
       resolvers: [
-        NaiveUiResolver(),
         IconsResolver({
-          prefix: 'icon',
+          // prefix: 'icon',
         }),
-        createIconComponentResolver({
-          debug: {
-            list: true,
-            limit: 1,
-            // find: ['AntdAndroidFilled', 'FluentAlbum24Regular']
-          }
-        }),
+        NaiveUiResolver(),
       ],
     }),
-
-    // Icon 自动引入
-    Icons({
-      autoInstall: true,
-    }),
-
-    // 开发模式下监听图标包目录变动，自动清空缓存
-    ViteIconCacheHMR(),
   ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`

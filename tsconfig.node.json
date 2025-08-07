@@ -9,6 +9,5 @@
   },
   "include": [
     "vite.config.ts",
-    "vicons-component-resolver.ts",
   ],
 }

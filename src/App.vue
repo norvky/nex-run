@@ -37,8 +37,7 @@ async function greet() {
     <div>
       <n-button icon-placement="left">
         <template #icon>
-          <n-icon><FluentAddSubtractCircle20Filled /></n-icon>
-          <!-- <n-icon><AccessAlarmOutlined /></n-icon> -->
+          <n-icon><i-mdi-alarm /></n-icon>
         </template>
         Button
       </n-button>
