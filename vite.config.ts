@@ -1,12 +1,12 @@
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
+import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
-import Components from "unplugin-vue-components/vite"
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
-import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+import Icons from 'unplugin-icons/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
 
-const host = process.env.TAURI_DEV_HOST;
+const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
@@ -38,7 +38,7 @@ export default defineConfig(async () => ({
       eslintrc: {
         enabled: true, // 自动添加 ESLint globals
         filepath: './.eslintrc-auto-import.json',
-      }
+      },
     }),
 
     // 自动按需引入组件
@@ -67,14 +67,14 @@ export default defineConfig(async () => ({
     host: host || false,
     hmr: host
       ? {
-          protocol: "ws",
+          protocol: 'ws',
           host,
           port: 1421,
         }
       : undefined,
     watch: {
       // 3. tell vite to ignore watching `src-tauri`
-      ignored: ["**/src-tauri/**"],
+      ignored: ['**/src-tauri/**'],
     },
   },
-}));
+}))
