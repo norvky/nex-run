@@ -5,7 +5,7 @@ import Components from "unplugin-vue-components/vite"
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
-import { ViconsResolver } from './vicons-resolver'
+import { createIconComponentResolver, ViteIconCacheHMR } from './vicons-component-resolver'
 
 const host = process.env.TAURI_DEV_HOST;
 
@@ -20,6 +20,14 @@ export default defineConfig(async () => ({
         'vue',
         // 'vue-router',
         // '@vueuse/core',
+        {
+          'naive-ui': [
+            'useDialog',
+            'useMessage',
+            'useNotification',
+            'useLoadingBar',
+          ],
+        },
       ],
       dts: 'src/auto-imports.d.ts',
       resolvers: [
@@ -43,7 +51,13 @@ export default defineConfig(async () => ({
         IconsResolver({
           prefix: 'icon',
         }),
-        ViconsResolver(),
+        createIconComponentResolver({
+          debug: {
+            list: true,
+            limit: 1,
+            // find: ['AntdAndroidFilled', 'FluentAlbum24Regular']
+          }
+        }),
       ],
     }),
 
@@ -51,6 +65,9 @@ export default defineConfig(async () => ({
     Icons({
       autoInstall: true,
     }),
+
+    // 开发模式下监听图标包目录变动，自动清空缓存
+    ViteIconCacheHMR(),
   ],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
