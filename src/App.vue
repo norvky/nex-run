@@ -5,9 +5,15 @@ import { ref } from 'vue'
 const greetMsg = ref('')
 const name = ref('')
 
+const { x: mouseX, y: mouseY } = useMouse()
+
 async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
   greetMsg.value = await invoke('greet', { name: name.value })
+}
+
+function close() {
+  // Handle click outside
 }
 </script>
 
@@ -43,6 +49,12 @@ async function greet() {
         </template>
         Button
       </n-button>
+      <h3>Mouse: {{ mouseX }} x {{ mouseY }}</h3>
+      <OnClickOutside @trigger="close">
+        <div style="border: 1px solid black;">
+          Click Outside of Me
+        </div>
+      </OnClickOutside>
     </div>
   </main>
 </template>
