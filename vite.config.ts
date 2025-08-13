@@ -9,6 +9,8 @@ import {
 } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
+import vueDevTools from 'vite-plugin-vue-devtools'
+import vueInspector from 'vite-plugin-vue-inspector'
 
 const host = process.env.TAURI_DEV_HOST
 
@@ -16,6 +18,8 @@ const host = process.env.TAURI_DEV_HOST
 export default defineConfig(async () => ({
   plugins: [
     vue(),
+    vueDevTools(),
+    vueInspector(),
 
     // unplugin-icons
     Icons({
