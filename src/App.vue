@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api/core'
 import { ref } from 'vue'
+import useSettingsStore from '@/store/modules/settings'
+
+const settings = useSettingsStore()
 
 const greetMsg = ref('')
 const name = ref('')
@@ -57,6 +60,12 @@ function close() {
           Click Outside of Me
         </div>
       </OnClickOutside>
+    </div>
+
+    <div p="y-4">
+      <n-checkbox v-model:checked="settings.isDark">
+        Dark Mode
+      </n-checkbox>
     </div>
   </main>
 </template>

@@ -1,4 +1,5 @@
 import type { PluginOption } from 'vite'
+import { resolve } from 'node:path'
 import process from 'node:process'
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
@@ -15,6 +16,10 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import vueInspector from 'vite-plugin-vue-inspector'
 
 const host = process.env.TAURI_DEV_HOST
+
+function pathResolve(dir: string): string {
+  return resolve(__dirname, '.', dir)
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -37,6 +42,7 @@ export default defineConfig({
         'vue',
         // 'vue-router',
         '@vueuse/core',
+        'pinia',
         {
           'naive-ui': [
             'useDialog',
@@ -68,6 +74,12 @@ export default defineConfig({
       ],
     }),
   ],
+
+  resolve: {
+    alias: {
+      '@': pathResolve('src'),
+    },
+  },
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
