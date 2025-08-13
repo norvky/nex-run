@@ -19,7 +19,9 @@ function close() {
 
 <template>
   <main class="container">
-    <h1>Welcome to Tauri + Vue</h1>
+    <h1 text="4xl center gray-500" font="600">
+      Welcome to Tauri + Vue
+    </h1>
 
     <div class="row">
       <a href="https://vitejs.dev" target="_blank">
@@ -119,10 +121,6 @@ a {
 
 a:hover {
   color: #535bf2;
-}
-
-h1 {
-  text-align: center;
 }
 
 input,

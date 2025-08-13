@@ -1,5 +1,7 @@
+import type { PluginOption } from 'vite'
 import process from 'node:process'
 import vue from '@vitejs/plugin-vue'
+import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 import Icons from 'unplugin-icons/vite'
@@ -15,11 +17,13 @@ import vueInspector from 'vite-plugin-vue-inspector'
 const host = process.env.TAURI_DEV_HOST
 
 // https://vitejs.dev/config/
-export default defineConfig(async () => ({
+export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
     vueInspector(),
+
+    UnoCSS() as PluginOption,
 
     // unplugin-icons
     Icons({
@@ -86,4 +90,4 @@ export default defineConfig(async () => ({
       ignored: ['**/src-tauri/**'],
     },
   },
-}))
+})

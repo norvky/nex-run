@@ -25,11 +25,15 @@
     "path": "./tsconfig.node.json"
   }],
   "include": [
-    "auto-imports.d.ts",
-    "components.d.ts",
+    "uno.config.ts",
+    "./*.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }
