@@ -7,4 +7,7 @@ export default defineConfig({
     presetWind4(),
     presetAttributify(),
   ],
+  shortcuts: {
+    'wh-full': 'w-full h-full',
+  },
 })

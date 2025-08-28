@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api/core'
+import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
 import { ref } from 'vue'
-import useSettingsStore from '@/store/modules/settings'
+import { useAppStore } from '@/store'
 
-const settings = useSettingsStore()
+const appStore = useAppStore()
 
 const greetMsg = ref('')
 const name = ref('')
@@ -21,53 +22,60 @@ function close() {
 </script>
 
 <template>
-  <main class="container">
-    <h1 text="4xl center gray-500" font="600">
-      Welcome to Tauri + Vue
-    </h1>
+  <n-config-provider
+    wh-full
+    :locale="zhCN"
+    :date-locale="dateZhCN"
+    :theme="appStore.isDark ? darkTheme : undefined"
+  >
+    <main class="container" wh-full>
+      <h1 text="4xl center gray-500" font="600">
+        Welcome to Tauri + Vue
+      </h1>
 
-    <div class="row">
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo vite" alt="Vite logo">
-      </a>
-      <a href="https://tauri.app" target="_blank">
-        <img src="/tauri.svg" class="logo tauri" alt="Tauri logo">
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
-      </a>
-    </div>
-    <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
+      <div class="row">
+        <a href="https://vitejs.dev" target="_blank">
+          <img src="/vite.svg" class="logo vite" alt="Vite logo">
+        </a>
+        <a href="https://tauri.app" target="_blank">
+          <img src="/tauri.svg" class="logo tauri" alt="Tauri logo">
+        </a>
+        <a href="https://vuejs.org/" target="_blank">
+          <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
+        </a>
+      </div>
+      <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
 
-    <form class="row" @submit.prevent="greet">
-      <input id="greet-input" v-model="name" placeholder="Enter a name...">
-      <button type="submit">
-        Greet
-      </button>
-    </form>
-    <p>{{ greetMsg }}</p>
+      <form class="row" @submit.prevent="greet">
+        <input id="greet-input" v-model="name" placeholder="Enter a name...">
+        <button type="submit">
+          Greet
+        </button>
+      </form>
+      <p>{{ greetMsg }}</p>
 
-    <div>
-      <n-button icon-placement="left">
-        <template #icon>
-          <n-icon><i-mdi-alarm /></n-icon>
-        </template>
-        Button
-      </n-button>
-      <h3>Mouse: {{ mouseX }} x {{ mouseY }}</h3>
-      <OnClickOutside @trigger="close">
-        <div style="border: 1px solid black;">
-          Click Outside of Me
-        </div>
-      </OnClickOutside>
-    </div>
+      <div>
+        <n-button icon-placement="left">
+          <template #icon>
+            <n-icon><i-mdi-alarm /></n-icon>
+          </template>
+          Button
+        </n-button>
+        <h3>Mouse: {{ mouseX }} x {{ mouseY }}</h3>
+        <OnClickOutside @trigger="close">
+          <div style="border: 1px solid black;">
+            Click Outside of Me
+          </div>
+        </OnClickOutside>
+      </div>
 
-    <div p="y-4">
-      <n-checkbox v-model:checked="settings.isDark">
-        Dark Mode
-      </n-checkbox>
-    </div>
-  </main>
+      <div p="y-4">
+        <n-checkbox v-model:checked="appStore.isDark">
+          Dark Mode
+        </n-checkbox>
+      </div>
+    </main>
+  </n-config-provider>
 </template>
 
 <style scoped>
@@ -95,15 +103,6 @@ function close() {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
-
-.container {
-  margin: 0;
-  padding-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
 }
 
 .logo {

@@ -1,3 +1,9 @@
-const store = createPinia()
+import type { App } from 'vue'
 
-export default store
+export function setupStore(app: App) {
+  const pinia = createPinia()
+
+  app.use(pinia)
+}
+
+export * from './modules'

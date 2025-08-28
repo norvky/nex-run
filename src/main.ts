@@ -1,10 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import store from './store'
+import { setupStore } from './store'
 import 'virtual:uno.css'
+import '@/styles/global.css'
 
 const app = createApp(App)
 
-app.use(store)
+setupStore(app)
 
 app.mount('#app')
