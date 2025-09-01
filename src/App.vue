@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { invoke } from '@tauri-apps/api/core'
+import { info } from '@tauri-apps/plugin-log'
 import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
 import { ref } from 'vue'
+import { useTauriPluginLog } from '@/composables/use-tauri-plugin-log'
 import { useAppStore } from '@/store'
 
+const { isLogAttached, logError } = useTauriPluginLog()
 const appStore = useAppStore()
 
 const greetMsg = ref('')
@@ -13,6 +16,7 @@ const { x: mouseX, y: mouseY } = useMouse()
 
 async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+  info('Invoking greet command')
   greetMsg.value = await invoke('greet', { name: name.value })
 }
 
@@ -69,10 +73,22 @@ function close() {
         </OnClickOutside>
       </div>
 
-      <div p="y-4">
+      <div p="x-2 y-4">
         <n-checkbox v-model:checked="appStore.isDark">
           Dark Mode
         </n-checkbox>
+      </div>
+
+      <div p="x-2 y-4">
+        <p v-if="isLogAttached" c="green">
+          Tauri plugin log is attached.
+        </p>
+        <p v-else-if="logError" c="red">
+          Connection failed: {{ logError.message }}
+        </p>
+        <p v-else c="gray">
+          Connecting to Tauri plugin log...
+        </p>
       </div>
     </main>
   </n-config-provider>

@@ -5,15 +5,14 @@
 
 // 引入 Tauri 框架的核心类型和宏
 use tauri::{generate_context, generate_handler, App, Builder, Result, RunEvent, Wry};
+// 日志记录
+use tauri_plugin_log::{Target, TargetKind};
 // 引入 Tauri 插件：opener
 use tauri_plugin_opener;
 
 // 引入内部模块
 mod cmd; // 包含所有后端命令（commands）的定义
 mod utils; // 包含各种通用工具，例如日志功能
-
-// 从 `utils` 模块导入日志类型，用于日志输出
-use utils::logging::Type;
 
 // =========================================================================
 // 辅助函数集合：负责应用程序不同方面的配置和生命周期管理
@@ -36,9 +35,15 @@ fn register_tauri_plugins(builder_instance: Builder<Wry>) -> Builder<Wry> {
     builder_instance
         // 注册 Tauri 官方的 `opener` 插件，用于在默认浏览器中打开外部链接。
         .plugin(tauri_plugin_opener::init())
-    // 示例：如果未来计划集成更多插件，可以在这里添加：
-    // .plugin(tauri_plugin_logging::Builder::new().build()) // 例如日志插件
-    // .plugin(tauri_plugin_sql::Builder::default().build()) // 例如 SQL 数据库插件
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .targets([
+                    Target::new(TargetKind::Stdout),
+                    Target::new(TargetKind::LogDir { file_name: None }),
+                    Target::new(TargetKind::Webview),
+                ])
+                .build(),
+        )
 }
 
 /// 注册所有前端可调用的后端命令处理器。
@@ -118,22 +123,17 @@ fn build_tauri_application(builder_instance: Builder<Wry>) -> Result<App<Wry>> {
 fn run_app_event_loop(app: App<Wry>) {
     app.run(move |_app_handle, event| match event {
         RunEvent::Ready | RunEvent::Resumed => {
-            logging!(info, Type::System, true, "Application is ready");
+            log::info!(target: "System", "Application is ready.");
         }
         RunEvent::ExitRequested { api, .. } => {
             // 阻止应用程序立即退出，允许执行自定义退出逻辑。
             api.prevent_exit();
-            logging!(
-                info,
-                Type::System,
-                true,
-                "Exit requested, preventing default exit."
-            );
+            log::info!(target: "System", "Exit requested, preventing default exit.");
             // 可以在此处添加自定义的退出确认逻辑，例如向前端发送事件或显示对话框。
             // _app_handle.emit_all("ask_before_exit", ()) 或者 _app_handle.dialog().ask(...)
         }
         RunEvent::Exit => {
-            logging!(info, Type::System, true, "Application is exiting");
+            log::info!(target: "System", "Application is exiting.");
         }
         _ => { /* 处理其他未明确处理的事件 */ }
     });
