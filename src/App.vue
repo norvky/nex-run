@@ -76,7 +76,7 @@ function close() {
       <div>
         <n-button icon-placement="left">
           <template #icon>
-            <n-icon><i-mdi-alarm /></n-icon>
+            <n-icon><span i-mdi-alarm /></n-icon>
           </template>
           Button
         </n-button>

@@ -4,8 +4,6 @@ import process from 'node:process'
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
-import IconsResolver from 'unplugin-icons/resolver'
-import Icons from 'unplugin-icons/vite'
 import {
   NaiveUiResolver,
   VueUseComponentsResolver,
@@ -29,12 +27,6 @@ export default defineConfig({
     vueInspector(),
 
     UnoCSS() as PluginOption,
-
-    // unplugin-icons
-    Icons({
-      autoInstall: true,
-      compiler: 'vue3',
-    }),
 
     // 自动引入 Vue Composition API & VueUse 等常用函数
     AutoImport({
@@ -66,9 +58,6 @@ export default defineConfig({
       deep: true,
       dts: true,
       resolvers: [
-        IconsResolver({
-          // prefix: 'icon',
-        }),
         NaiveUiResolver(),
         VueUseComponentsResolver(),
       ],
