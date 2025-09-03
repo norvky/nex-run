@@ -39,13 +39,28 @@ function close() {
 
       <div class="row">
         <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" class="logo vite" alt="Vite logo">
+          <img
+            src="/vite.svg"
+            class="logo"
+            alt="Vite logo"
+            hover="filter-drop-shadow-[0_0_2em_#747bff]"
+          >
         </a>
         <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" class="logo tauri" alt="Tauri logo">
+          <img
+            src="/tauri.svg"
+            class="logo"
+            alt="Tauri logo"
+            hover="filter-drop-shadow-[0_0_2em_#249b73]"
+          >
         </a>
         <a href="https://vuejs.org/" target="_blank">
-          <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
+          <img
+            src="./assets/vue.svg"
+            class="logo"
+            alt="Vue logo"
+            hover="filter-drop-shadow-[0_0_2em_#249b73]"
+          >
         </a>
       </div>
       <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
@@ -94,16 +109,6 @@ function close() {
   </n-config-provider>
 </template>
 
-<style scoped>
-.logo.vite:hover {
-  filter: drop-shadow(0 0 2em #747bff);
-}
-
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #249b73);
-}
-</style>
-
 <style>
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -122,14 +127,7 @@ function close() {
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: 0.75s;
-}
-
-.logo.tauri:hover {
-  filter: drop-shadow(0 0 2em #24c8db);
+  --at-apply: h-6em p-1.5em will-change-filter transition-75;
 }
 
 .row {
