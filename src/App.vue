@@ -33,7 +33,7 @@ function close() {
     :theme="appStore.isDark ? darkTheme : undefined"
   >
     <main class="container" wh-full>
-      <h1 text="4xl center gray-500" font="600">
+      <h1 class="text-(4xl center gray-500) font-600">
         Welcome to Tauri + Vue
       </h1>
 

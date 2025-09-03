@@ -3,6 +3,7 @@ import presetWind4 from '@unocss/preset-wind4'
 import {
   defineConfig,
   transformerDirectives,
+  transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
@@ -12,6 +13,7 @@ export default defineConfig({
   ],
   transformers: [
     transformerDirectives(),
+    transformerVariantGroup(),
   ],
   shortcuts: {
     'wh-full': 'w-full h-full',
