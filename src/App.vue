@@ -37,7 +37,7 @@ function close() {
         Welcome to Tauri + Vue
       </h1>
 
-      <div class="row">
+      <n-space justify="center">
         <a href="https://vitejs.dev" target="_blank">
           <img
             src="/vite.svg"
@@ -62,14 +62,18 @@ function close() {
             hover="filter-drop-shadow-[0_0_2em_#249b73]"
           >
         </a>
-      </div>
-      <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
+      </n-space>
+      <p flex="~ justify-center">
+        Click on the Tauri, Vite, and Vue logos to learn more.
+      </p>
 
-      <form class="row" @submit.prevent="greet">
-        <input id="greet-input" v-model="name" placeholder="Enter a name...">
-        <button type="submit">
-          Greet
-        </button>
+      <form flex="~ justify-center" @submit.prevent="greet">
+        <n-space>
+          <n-input v-model:value="name" size="large" placeholder="Enter a name..." />
+          <n-button attr-type="submit" size="large" type="primary">
+            Greet
+          </n-button>
+        </n-space>
       </form>
       <p>{{ greetMsg }}</p>
 
@@ -106,97 +110,12 @@ function close() {
         </p>
       </div>
     </main>
+    <n-global-style />
   </n-config-provider>
 </template>
 
 <style>
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color: #0f0f0f;
-  background-color: #f6f6f6;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
 .logo {
   --at-apply: h-6em p-1.5em will-change-filter transition-75;
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-input,
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  color: #0f0f0f;
-  background-color: #ffffff;
-  transition: border-color 0.25s;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-}
-
-button {
-  cursor: pointer;
-}
-
-button:hover {
-  border-color: #396cd8;
-}
-button:active {
-  border-color: #396cd8;
-  background-color: #e8e8e8;
-}
-
-input,
-button {
-  outline: none;
-}
-
-#greet-input {
-  margin-right: 5px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color: #f6f6f6;
-    background-color: #2f2f2f;
-  }
-
-  a:hover {
-    color: #24c8db;
-  }
-
-  input,
-  button {
-    color: #ffffff;
-    background-color: #0f0f0f98;
-  }
-  button:active {
-    background-color: #0f0f0f69;
-  }
 }
 </style>

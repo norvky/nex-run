@@ -1,13 +1,16 @@
-import presetAttributify from '@unocss/preset-attributify'
-import presetWind4 from '@unocss/preset-wind4'
 import {
   defineConfig,
+  presetAttributify,
   presetIcons,
+  presetWind4,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
 
 export default defineConfig({
+  shortcuts: {
+    'wh-full': 'w-full h-full',
+  },
   presets: [
     presetWind4(),
     presetAttributify(),
@@ -23,7 +26,4 @@ export default defineConfig({
     transformerDirectives(),
     transformerVariantGroup(),
   ],
-  shortcuts: {
-    'wh-full': 'w-full h-full',
-  },
 })
